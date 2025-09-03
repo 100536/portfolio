@@ -27,6 +27,15 @@ Dit is mijn persoonlijke **portfolio website** waarin ik mijn projecten, vaardig
 - **JavaScript (ES6)**: interactieve elementen, dark/light mode  
 - **PHP** (voor login/registratie en serverkoppeling, indien actief)  
 
+## 📧 Contact  
+
+Wil je contact opnemen of samenwerken? Dat kan via:  
+
+- **E-mail**: [lucas.werk@gmail.com](mailto:lucas.werk@gmail.com)  
+- **GitHub**: [github.com/100536](https://github.com/100536)  
+- **LinkedIn**: [LinkedIn profiel](https://www.linkedin.com/in/lucas-askamp-87031a2b7/)  
+- **Instagram**: [@lucasaskamp](https://www.instagram.com/lucasaskamp/)  
+
 ## 📂 Projectstructuur  
 
 ```plaintext
@@ -39,11 +48,5 @@ portofolio/
 ├── index.html         # Startpagina
 └── README.md          # Documentatie
 
-## 📧 Contact  
 
-Wil je contact opnemen of samenwerken? Dat kan via:  
-
-- **E-mail**: [lucas.werk@gmail.com](mailto:lucas.werk@gmail.com)  
-- **GitHub**: [github.com/100536](https://github.com/100536)  
-- **LinkedIn**: [LinkedIn profiel](https://www.linkedin.com/in/lucas-askamp-87031a2b7/)  
-- **Instagram**: [@lucasaskamp](https://www.instagram.com/lucasaskamp/)  
+© 2024 Lucas Askamp – Alle rechten voorbehouden.
