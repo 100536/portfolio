@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="../css/about.css">
+    <link rel="stylesheet" href="../css/light-button.css">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="../css/foother.css">
+</head>
+<body>
+
+<svg display="none">
+    <symbol id="light" viewBox="0 0 24 24">
+        <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="12" y1="17" x2="12" y2="20" transform="rotate(0,12,12)" />
+            <line x1="12" y1="17" x2="12" y2="20" transform="rotate(45,12,12)" />
+            <line x1="12" y1="17" x2="12" y2="20" transform="rotate(90,12,12)" />
+            <line x1="12" y1="17" x2="12" y2="20" transform="rotate(135,12,12)" />
+            <line x1="12" y1="17" x2="12" y2="20" transform="rotate(180,12,12)" />
+            <line x1="12" y1="17" x2="12" y2="20" transform="rotate(225,12,12)" />
+            <line x1="12" y1="17" x2="12" y2="20" transform="rotate(270,12,12)" />
+            <line x1="12" y1="17" x2="12" y2="20" transform="rotate(315,12,12)" />
+        </g>
+        <circle fill="currentColor" cx="12" cy="12" r="5" />
+    </symbol>
+    <symbol id="dark" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M15.1,14.9c-3-0.5-5.5-3-6-6C8.8,7.1,9.1,5.4,9.9,4c0.4-0.8-0.4-1.7-1.2-1.4C4.6,4,1.8,7.9,2,12.5c0.2,5.1,4.4,9.3,9.5,9.5c4.5,0.2,8.5-2.6,9.9-6.6c0.3-0.8-0.6-1.7-1.4-1.2C18.6,14.9,16.9,15.2,15.1,14.9z" />
+    </symbol>
+</svg>
+<label class="switch">
+    <input class="switch__input" type="checkbox" role="switch" name="dark" />
+    <svg class="switch__icon" width="24px" height="24px" aria-hidden="true">
+        <use href="#light" />
+    </svg>
+    <svg class="switch__icon" width="24px" height="24px" aria-hidden="true">
+        <use href="#dark" />
+    </svg>
+    <span class="switch__inner"></span>
+    <span class="switch__inner-icons">
+            <svg class="switch__icon" width="24px" height="24px" aria-hidden="true">
+                <use href="#light" />
+            </svg>
+            <svg class="switch__icon" width="24px" height="24px" aria-hidden="true">
+                <use href="#dark" />
+            </svg>
+        </span>
+    <span class="switch__sr">Dark Mode</span>
+</label>
+<nav>
+    <a href="../index.html">Home</a>
+    <a class="active first" onclick="scrollToPortfolio()">About</a>
+    <a href="project.html">Projects</a>
+    <a href="contact.html">Contact</a>
+    <a href="login.html">Login</a>
+    <div class="animation start-home"></div>
+</nav>
+
+<div class="title" style=" display: flex; justify-content: center;  min-height: 100vh;">
+    <h1>Wie ben ik?</h1>
+    <p>Ik ben Lucas Askmp, 18 jaar oud en studeer software development aan het Grafisch Lyceum Rotterdam. Mijn focus ligt op coderen, web development en klantgerichte projecten. Daarnaast heb ik een passie voor game development, van concept tot eindproduct.</p>
+    
+    <h1>Wat kan ik doen?</h1>
+    <p>Ik ontwikkel dynamische en responsieve websites met HTML, CSS, JavaScript en PHP. Momenteel breid ik mijn skills uit met C# en Unity voor game development. Bekijk mijn projecten op GitHub of mijn website!</p>
+    
+    <h1>Hobby's en interesses</h1>
+    <p>In mijn vrije tijd game ik op PC en PS5, waarbij ik diverse genres verken, van shooters tot simulators.</p>
+    <img src="../img/foto.jpeg" alt="Profile Image">
+
+</div>
+<footer class="footer">
+
+    <ul class="menu">
+        <li class="menu__item"><a class="menu__link" href="https://github.com/100536">Github</a></li>
+        <li class="menu__item"><a class="menu__link" href="https://www.linkedin.com/in/lucas-askamp-87031a2b7/">LinkedIn</a></li>
+        <li class="menu__item"><a class="menu__link" href="https://www.instagram.com/lucasaskamp/">Instagram</a></li>
+        <li class="menu__item"><a class="menu__link" href="./contact/contact.html">Contact</a></li>
+
+    </ul>
+    <p>&copy;2024 Lucas Askamp | All Rights Reserved</p>
+</footer>
+
+
+</body>
+</html>

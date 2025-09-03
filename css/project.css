@@ -1,0 +1,105 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Basis */
+  body {
+    background-color: #fff;
+    color: #000;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Titel en subtitel */
+  .title {
+    /* Haal hier de absolute positioning weg */
+    text-align: center;
+    margin: 2rem auto; /* Biedt ruimte boven en onder */
+    /* Verwijder position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); */
+  }
+  
+  /* Sectie voor projecten */
+  .projects-section {
+    padding: 2rem;
+  }
+  
+  /* Container voor projectkaarten */
+  .projects-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Zent de kaarten horizontaal */
+    gap: 2rem; /* Ruimte tussen de kaarten */
+    max-width: 1200px; /* Optioneel: maximale breedte */
+    margin: 0 auto; /* Zent de container */
+  }
+  
+  /* Stijl voor de projectkaart */
+  .project-card {
+    background-color: #fff;
+    width: 280px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 1rem; /* Ruimte onder de 'Meer info'-knop */
+  }
+  
+  .project-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .project-card h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .project-card p {
+    margin: 0 1rem 1rem 1rem;
+    color: #333;
+  }
+  
+  .project-card a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  
+  .project-card a:hover {
+    background-color: #444;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #000;
+    color: #e5e8e8;
+    text-align: center;
+    padding: 16px;
+    /* Haal hier position: absolute; weg om overlapping te voorkomen */
+    /* Gebruik bij voorkeur geen vaste bottom, laat de footer meeschuiven in de normale flow */
+  }
+  
+  .footer .menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer .menu__item .menu__link {
+    color: #e5e8e8;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .footer .menu__item .menu__link:hover {
+    color: #999;
+  }
+  
