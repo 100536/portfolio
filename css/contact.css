@@ -1,0 +1,196 @@
+/* Contact page - formulier links, contact rechts, footer onderaan */
+:root {
+  --card-bg: #ffffff;
+  --card-text: #0f172a;
+  --muted: #6b7280;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* --- Nav centreren (override menu.css) --- */
+body > nav {
+  margin: 20px auto !important;
+  left: auto !important;
+  right: auto !important;
+}
+
+/* --- Hoofdcontainer --- */
+.main-wrapper {
+  flex: 1;                        /* duwt footer naar beneden */
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 2rem 1rem 160px;       /* ruimte onderaan voor footer */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- Header --- */
+.header-block {
+  text-align: center;
+  margin-bottom: 2rem;
+  max-width: 760px;
+}
+
+.header-block h1 {
+  font-size: 2.2rem;
+  margin-bottom: .5rem;
+  color: #000000;
+}
+
+.header-block p {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* --- Contact grid (formulier links, direct contact rechts) --- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto 2rem;
+}
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Cards --- */
+.card {
+  background: var(--card-bg);
+  color: var(--card-text);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  padding: 1.5rem;
+  width: 100%;
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* --- Formulier --- */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: .35rem;
+}
+
+.input, .textarea {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 12px;
+  padding: .9rem 1rem;
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow .2s, border-color .2s;
+}
+
+.input:focus, .textarea:focus {
+  border-color: #000;
+  box-shadow: 0 0 0 4px rgba(0,0,0,.08);
+}
+
+.textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: .9rem;
+  margin-top: .35rem;
+}
+
+/* --- Knoppen --- */
+.actions {
+  margin-top: 1.25rem;
+  display: flex;
+  gap: .75rem;
+  justify-content: center;       /* knoppen in het midden */
+  flex-wrap: wrap;
+}
+
+button.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  font-size: 1rem;
+  height: 50px;
+  min-width: 160px;
+  padding: 0 18px;
+  border: none;
+  background-color: #000000;
+  color: #e5e8e8;
+  transition: background-color .25s ease;
+  cursor: pointer;
+}
+
+button.contact-btn:hover { background-color: #4e545c; }
+
+/* Dark mode support */
+button.contact-btn.dark-mode {
+  background-color: #e5e8e8;
+  color: #4e545c;
+}
+button.contact-btn.dark-mode:hover {
+  background-color: #4e545c;
+  color: #e5e8e8;
+}
+
+/* --- Contactinfo kaart (rechts) --- */
+.inline-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.inline-list li + li { margin-top: .5rem; }
+
+.kicker {
+  font-size: .85rem;
+  color: var(--muted);
+  margin-bottom: .5rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.contact-item a {
+  color: #000;
+  text-decoration: none;
+}
+.contact-item a:hover { text-decoration: underline; }
+
+/* --- Footer onderaan --- */
+footer.footer {
+  margin-top: auto; /* plakt de footer onderaan */
+  position: relative;
+  z-index: 1;
+}
