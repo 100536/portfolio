@@ -13,7 +13,7 @@
 </head>
 <body>
 
-  <!-- Navigatie zoals op de andere pagina's -->
+  <!-- Navigatie -->
   <nav>
     <a href="../index.html">Home</a>
     <a href="about.html">About</a>
@@ -34,45 +34,53 @@
       <!-- Formulier -->
       <div class="card">
         <h2>Stuur een bericht</h2>
-        <!-- Wil je echte serververwerking? Laat het weten, dan maak ik een PHP-versie. -->
-        <form action="mailto:lucasaskamp@gmail.com" method="post" enctype="text/plain">
+
+        <form action="../php/send_mail.php" method="POST" novalidate>
+          <!-- Honeypot (tegen bots) -->
+          <div style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;">
+            <label for="website">Laat leeg</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
           <div class="form-row">
             <div>
               <label class="label" for="name">Naam</label>
-              <input class="input" type="text" id="name" name="Naam" placeholder="Je naam" required />
+              <input class="input" type="text" id="name" name="name" placeholder="Je naam" required>
             </div>
             <div>
               <label class="label" for="email">E-mail</label>
-              <input class="input" type="email" id="email" name="Email" placeholder="jij@voorbeeld.nl" required />
+              <input class="input" type="email" id="email" name="email" placeholder="jij@voorbeeld.nl" required>
             </div>
           </div>
 
           <div style="margin-top:1rem;">
             <label class="label" for="subject">Onderwerp</label>
-            <input class="input" type="text" id="subject" name="Onderwerp" placeholder="Waar gaat het over?" />
+            <input class="input" type="text" id="subject" name="subject" placeholder="Waar gaat het over?" required>
           </div>
 
           <div style="margin-top:1rem;">
             <label class="label" for="message">Bericht</label>
-            <textarea class="textarea" id="message" name="Bericht" placeholder="Schrijf hier je bericht..." required></textarea>
+            <textarea class="textarea" id="message" name="message" placeholder="Schrijf hier je bericht..." required></textarea>
             <p class="hint">Ik reageer meestal dezelfde dag.</p>
           </div>
 
-            <div class="actions">
-                <button type="submit" class="contact-btn">Verstuur</button>
-                <button type="reset" class="contact-btn">Leegmaken</button>
-            </div>
-
+          <div class="actions">
+            <button type="submit" class="contact-btn">Verstuur</button>
+            <button type="reset" class="contact-btn" style="background:#666;">Leegmaken</button>
+          </div>
         </form>
+
+        <!-- Statusmelding na versturen -->
+        <div id="status" style="margin-top:1rem; text-align:center;"></div>
       </div>
 
-      <!-- Contactinfo / Socials -->
+      <!-- Contactinfo -->
       <aside class="card">
         <h2>Direct contact</h2>
         <ul class="inline-list">
           <li class="contact-item">
             <div class="kicker">E-mail</div>
-            <a href="mailto:lucasa.werk@gmail.com">lucasa.werk@gmail.com</a>
+            <a href="mailto:lucas.werk@gmail.com">lucas.werk@gmail.com</a>
           </li>
           <li class="contact-item" style="margin-top:1rem;">
             <div class="kicker">LinkedIn</div>
@@ -102,6 +110,18 @@
     <p>&copy;2024 Lucas Askamp | All Rights Reserved</p>
   </footer>
 
-  <script src="../javascript/script.js"></script>
+  <!-- Script voor statusmelding -->
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      const s = params.get('status');
+      const el = document.getElementById('status');
+      if (!el || !s) return;
+      const ok = s === 'ok';
+      el.textContent = ok ? '✅ Bericht verzonden.' : '❌ Versturen mislukt. Probeer het later opnieuw.';
+      el.style.color = ok ? 'green' : 'red';
+    })();
+  </script>
+
 </body>
 </html>
