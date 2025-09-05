@@ -27,19 +27,27 @@
     </div>
   </header>
 
-  <!-- Hero -->
+ <!-- Hero -->
   <section id="home" class="hero">
-    <div class="container hero-inner">
-      <div class="hero-copy">
-        <h1>Portfolio van Lucas Askamp</h1>
-        <p>Webdeveloper. Focus op websites met strakke code en een duidelijke UX.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="html/project.html">Bekijk projecten</a>
-          <a class="btn" href="html/contact.html">Neem contact op</a>
-        </div>
+  <!-- Achtergrond-animatie: nu full-width -->
+  <div class="bg-fx" id="bgFx" aria-hidden="true">
+    <canvas id="fxCanvas"></canvas>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+  </div>
+
+  <!-- Content blijft in de container -->
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <h1>Portfolio van Lucas Askamp</h1>
+      <p>Webdeveloper. Focus op websites met strakke code en een duidelijke UX.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="html/project.html">Bekijk projecten</a>
+        <a class="btn" href="html/contact.html">Neem contact op</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Korte intro -->
   <section class="section">
