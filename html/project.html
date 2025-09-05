@@ -1,135 +1,107 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="nl" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/light-button.css">
-    <link rel="stylesheet" href="../css/menu.css">
-    <link rel="stylesheet" href="../css/foother.css">
-    <style>
-      #projects {
-        max-width: 900px;
-        margin: 2rem auto;
-        padding: 0 1rem;
-      }
-      #projects h2 {
-        text-align: center;
-        margin-bottom: 1.5rem;
-        font-size: 1.5rem;
-        color: #212121;
-      }
-      .projects-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
-      }
-      .project-card {
-        overflow: hidden;
-        border-radius: 0.5rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        transition: transform 0.3s;
-        max-width: 340px;
-        margin: 0 auto;
-      }
-      .project-card:hover {
-        transform: translateY(-5px);
-      }
-      .project-card img {
-        width: 100%;
-        display: block;
-        max-width: 340px;
-        height: auto;
-      }
-    </style>
-  </head>
-  <body>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projecten — Lucas Askamp</title>
+  <link rel="stylesheet" href="../css/site.css" />
+</head>
+<body>
 
-    <svg display="none">
-        <symbol id="light" viewBox="0 0 24 24">
-            <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <line x1="12" y1="17" x2="12" y2="20" transform="rotate(0,12,12)" />
-                <line x1="12" y1="17" x2="12" y2="20" transform="rotate(45,12,12)" />
-                <line x1="12" y1="17" x2="12" y2="20" transform="rotate(90,12,12)" />
-                <line x1="12" y1="17" x2="12" y2="20" transform="rotate(135,12,12)" />
-                <line x1="12" y1="17" x2="12" y2="20" transform="rotate(180,12,12)" />
-                <line x1="12" y1="17" x2="12" y2="20" transform="rotate(225,12,12)" />
-                <line x1="12" y1="17" x2="12" y2="20" transform="rotate(270,12,12)" />
-                <line x1="12" y1="17" x2="12" y2="20" transform="rotate(315,12,12)" />
-            </g>
-            <circle fill="currentColor" cx="12" cy="12" r="5" />
-        </symbol>
-        <symbol id="dark" viewBox="0 0 24 24">
-            <path fill="currentColor" d="M15.1,14.9c-3-0.5-5.5-3-6-6C8.8,7.1,9.1,5.4,9.9,4c0.4-0.8-0.4-1.7-1.2-1.4C4.6,4,1.8,7.9,2,12.5c0.2,5.1,4.4,9.3,9.5,9.5c4.5,0.2,8.5-2.6,9.9-6.6c0.3-0.8-0.6-1.7-1.4-1.2C18.6,14.9,16.9,15.2,15.1,14.9z" />
-        </symbol>
-    </svg>
+  <!-- Header / Navigatie -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand" aria-label="Ga naar home">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l7 4v12l-7 4-7-4V6l7-4zm0 2.3L7 6.8v10.4l5 2.5 5-2.5V6.8l-5-2.5z"/></svg>
+        <span>Lucas Askamp</span>
+      </a>
 
-    <label class="switch">
-        <input class="switch__input" type="checkbox" role="switch" name="dark" />
-        <svg class="switch__icon" width="24px" height="24px" aria-hidden="true">
-            <use href="#light" />
-        </svg>
-        <svg class="switch__icon" width="24px" height="24px" aria-hidden="true">
-            <use href="#dark" />
-        </svg>
-        <span class="switch__inner"></span>
-        <span class="switch__inner-icons">
-            <svg class="switch__icon" width="24px" height="24px" aria-hidden="true">
-                <use href="#light" />
-            </svg>
-            <svg class="switch__icon" width="24px" height="24px" aria-hidden="true">
-                <use href="#dark" />
-            </svg>
-        </span>
-        <span class="switch__sr">Dark Mode</span>
-    </label>
+      <nav class="nav" aria-label="Hoofd">
+        <a href="../index.html#home" class="nav__link">Home</a>
+        <a href="about.html" class="nav__link">Over mij</a>
+        <a href="#" class="nav__link is-active">Projecten</a>
+        <a href="contact.html" class="nav__link">Contact</a>
+        <a href="login.html" class="nav__link">Login</a>
+        <span class="nav__indicator" aria-hidden="true"></span>
+      </nav>
 
-    <nav>
-        <a href="../index.html">Home</a>
-        <a href="about.html">About</a>
-        <a class="active first" onclick="scrollToPortfolio()">Projects</a>
-        <a href="contact.html">Contact</a>
-        <a href="login.html">Login</a>
-        <div class="animation start-home"></div>
-    </nav>
+    </div>
+  </header>
 
-    <div class="title" style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+  <!-- Sub-hero -->
+  <section class="hero hero--sub">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <h1>Projecten</h1>
+        <p>Een selectie van recente werken en experimenten.</p>
+      </div>
+    </div>
+  </section>
 
-      <h1>Projects</h1>
-      <div class="projects-grid">
-        <!--project 1 -->
-        <div class="project-card">
-          <a href="../space-quizz-main/Hoofdpagina/Hoofdpagina.html" target="_blank" rel="noopener">
-            <img src="../img/project1.jpg" alt="Project 1">
+  <!-- Projecten -->
+  <main class="section">
+    <div class="container">
+      <div class="project-grid">
+        <!-- Project 1 -->
+        <article class="card project">
+          <a class="project__thumb" href="../space-quizz-main/Hoofdpagina/Hoofdpagina.html" target="_blank" rel="noopener">
+            <img src="../img/project1.jpg" alt="Space Quiz project" loading="lazy" />
           </a>
-          <h1>Space quiz</h1>
-        </div>
-        <!-- project 2 -->
-        <div class="project-card">
-          <a href="../misoin_to_mars/paginas/index.html" target="_blank" rel="noopener">
-            <img src="../img/project2.jpg" alt="Project 2">
+          <div class="project__body">
+            <h3 class="project__title">Space Quiz</h3>
+            <p class="project__desc">Quiz over ruimtevaart met meerdere levels en score.</p>
+            <div class="chip-list">
+              <span class="chip">HTML</span>
+              <span class="chip">CSS</span>
+              <span class="chip">JavaScript</span>
+            </div>
+            <div class="project__actions">
+              <a class="btn btn-primary" href="../space-quizz-main/Hoofdpagina/Hoofdpagina.html" target="_blank" rel="noopener">Bekijk live</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="card project">
+          <a class="project__thumb" href="../misoin_to_mars/paginas/index.html" target="_blank" rel="noopener">
+            <img src="../img/project2.jpg" alt="Mission to Mars project" loading="lazy" />
           </a>
-           <h1>Mission To Mars</h1>
-        </div>
+          <div class="project__body">
+            <h3 class="project__title">Mission To Mars</h3>
+            <p class="project__desc">Landing concept met animaties en navigatie.</p>
+            <div class="chip-list">
+              <span class="chip">HTML</span>
+              <span class="chip">CSS</span>
+              <span class="chip">JS</span>
+            </div>
+            <div class="project__actions">
+              <a class="btn btn-primary" href="../misoin_to_mars/paginas/index.html" target="_blank" rel="noopener">Bekijk live</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="avatar">LA</span>
+        <div>
+          <strong>Lucas Askamp</strong>
+          <div class="muted">© <span id="year"></span> Alle rechten voorbehouden</div>
         </div>
       </div>
-    </section>
-    </div>
 
-
-    <footer class="footer">
-      <ul class="menu">
-        <li class="menu__item"><a class="menu__link" href="https://github.com/100536">Github</a></li>
-        <li class="menu__item"><a class="menu__link" href="https://www.linkedin.com/in/lucas-askamp-87031a2b7/">LinkedIn</a></li>
-        <li class="menu__item"><a class="menu__link" href="https://www.instagram.com/lucasaskamp/">Instagram</a></li>
-        <li class="menu__item"><a class="menu__link" href="contact.html">Contact</a></li>
+      <ul class="footer-menu">
+        <li><a href="https://github.com/100536" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/lucas-askamp-87031a2b7/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
-      <p>&copy;2024 Lucas Askamp | All Rights Reserved</p>
-    </footer>
+    </div>
+  </footer>
 
-    <!-- Script met correcte path -->
-    <script src="../javascript/script.js"></script>
+  <script src="../javascript/site.js"></script>
 </body>
 </html>

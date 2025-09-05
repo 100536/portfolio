@@ -1,128 +1,139 @@
-<!DOCTYPE html>
-<html lang="nl">
+<!doctype html>
+<html lang="nl" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact</title>
-  <link rel="stylesheet" href="../css/styles.css" />
-  <link rel="stylesheet" href="../css/light-button.css" />
-  <link rel="stylesheet" href="../css/menu.css" />
-  <link rel="stylesheet" href="../css/foother.css" />
-  <link rel="stylesheet" href="../css/contact.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Lucas Askamp</title>
+  <link rel="stylesheet" href="../css/site.css" />
 </head>
 <body>
 
+  <!-- Header / Navigatie -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand" aria-label="Ga naar home">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l7 4v12l-7 4-7-4V6l7-4zm0 2.3L7 6.8v10.4l5 2.5 5-2.5V6.8l-5-2.5z"/></svg>
+        <span>Lucas Askamp</span>
+      </a>
 
-  <!-- Navigatie -->
-  <nav>
-    <a href="../index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="project.html">Projects</a>
-    <a class="active first" href="contact.html">Contact</a>
-    <a href="login.html">Login</a>
-    <div class="animation start-home"></div>
-  </nav>
+      <nav class="nav" aria-label="Hoofd">
+        <a href="../index.html#home" class="nav__link">Home</a>
+        <a href="about.html" class="nav__link">Over mij</a>
+        <a href="project.html" class="nav__link">Projecten</a>
+        <a href="#" class="nav__link is-active">Contact</a>
+        <a href="login.html" class="nav__link">Login</a>
+        <span class="nav__indicator" aria-hidden="true"></span>
+      </nav>
+    </div>
+  </header>
 
-  <main class="main-wrapper">
-    <header class="header-block">
-      <p class="kicker">Neem contact op</p>
-      <h1>Vertel kort wat je zoekt</h1>
-      <p>Stuur een bericht en ik kom terug met een duidelijk antwoord of voorstel.</p>
-    </header>
-
-    <section class="contact-grid">
-      <!-- Formulier -->
-      <div class="card">
-        <h2>Stuur een bericht</h2>
-
-        <form action="../php/send_mail.php" method="POST" novalidate>
-          <!-- Honeypot (tegen bots) -->
-          <div style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;">
-            <label for="website">Laat leeg</label>
-            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-          </div>
-
-          <div class="form-row">
-            <div>
-              <label class="label" for="name">Naam</label>
-              <input class="input" type="text" id="name" name="name" placeholder="Je naam" required>
-            </div>
-            <div>
-              <label class="label" for="email">E-mail</label>
-              <input class="input" type="email" id="email" name="email" placeholder="jij@voorbeeld.nl" required>
-            </div>
-          </div>
-
-          <div style="margin-top:1rem;">
-            <label class="label" for="subject">Onderwerp</label>
-            <input class="input" type="text" id="subject" name="subject" placeholder="Waar gaat het over?" required>
-          </div>
-
-          <div style="margin-top:1rem;">
-            <label class="label" for="message">Bericht</label>
-            <textarea class="textarea" id="message" name="message" placeholder="Schrijf hier je bericht..." required></textarea>
-            <p class="hint">Ik reageer meestal dezelfde dag.</p>
-          </div>
-
-          <div class="actions">
-            <button type="submit" class="contact-btn">Verstuur</button>
-            <button type="reset" class="contact-btn" style="background:#666;">Leegmaken</button>
-          </div>
-        </form>
-
-        <!-- Statusmelding na versturen -->
-        <div id="status" style="margin-top:1rem; text-align:center;"></div>
+  <!-- Sub-hero -->
+  <section class="hero hero--sub">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <h1>Contact</h1>
+        <p>Vertel kort wat je zoekt. Ik reageer meestal dezelfde dag.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- Inhoud -->
+  <main class="section">
+    <div class="container contact-grid">
+      <!-- Formulier -->
+      <article class="card">
+        <header class="card__header">
+          <h2>Stuur een bericht</h2>
+        </header>
+        <div class="card__body">
+          <form action="../php/send_mail.php" method="post" class="contact-form" novalidate>
+            <!-- Honeypot -->
+            <div class="hp">
+              <label for="website">Laat leeg</label>
+              <input type="text" id="website" name="website" autocomplete="off" tabindex="-1" />
+            </div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label class="label" for="name">Naam</label>
+                <input class="input" type="text" id="name" name="name" placeholder="Je naam" required />
+              </div>
+              <div class="field">
+                <label class="label" for="email">E-mail</label>
+                <input class="input" type="email" id="email" name="email" placeholder="jij@voorbeeld.nl" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="subject">Onderwerp</label>
+              <input class="input" type="text" id="subject" name="subject" placeholder="Waar gaat het over?" required />
+            </div>
+
+            <div class="field">
+              <label class="label" for="message">Bericht</label>
+              <textarea class="textarea" id="message" name="message" rows="6" placeholder="Schrijf hier je bericht..." required></textarea>
+              <p class="hint">Ik laat snel iets weten.</p>
+            </div>
+
+            <div class="actions">
+              <button type="submit" class="btn btn-primary">Verstuur</button>
+              <button type="reset" class="btn">Leegmaken</button>
+            </div>
+
+            <p id="status" class="alert" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </article>
 
       <!-- Contactinfo -->
       <aside class="card">
-        <h2>Direct contact</h2>
-        <ul class="inline-list">
-          <li class="contact-item">
-            <div class="kicker">E-mail</div>
-            <a href="mailto:lucas.werk@gmail.com">lucas.werk@gmail.com</a>
-          </li>
-          <li class="contact-item" style="margin-top:1rem;">
-            <div class="kicker">LinkedIn</div>
-            <a href="https://www.linkedin.com/in/lucas-askamp-87031a2b7/">LinkedIn profiel</a>
-          </li>
-          <li class="contact-item" style="margin-top:1rem;">
-            <div class="kicker">GitHub</div>
-            <a href="https://github.com/100536">github.com/100536</a>
-          </li>
-          <li class="contact-item" style="margin-top:1rem;">
-            <div class="kicker">Instagram</div>
-            <a href="https://www.instagram.com/lucasaskamp/">@lucasaskamp</a>
-          </li>
-        </ul>
+        <header class="card__header">
+          <h2>Direct contact</h2>
+        </header>
+        <div class="card__body">
+          <ul class="inline-list">
+            <li>
+              <div class="kicker">E-mail</div>
+              <a href="mailto:lucas.werk@gmail.com">lucas.werk@gmail.com</a>
+            </li>
+            <li>
+              <div class="kicker">LinkedIn</div>
+              <a href="https://www.linkedin.com/in/lucas-askamp-87031a2b7/" target="_blank" rel="noopener">Mijn LinkedIn profiel</a>
+            </li>
+            <li>
+              <div class="kicker">GitHub</div>
+              <a href="https://github.com/100536" target="_blank" rel="noopener">Mijn Github</a>
+            </li>
+            <li>
+              <div class="kicker">Nummer</div>
+              <a href="tel:+31640892652">06 40892652</a>
+            </li>
+          </ul>
+        </div>
       </aside>
-    </section>
+    </div>
   </main>
 
   <!-- Footer -->
-  <footer class="footer">
-    <ul class="menu">
-      <li class="menu__item"><a class="menu__link" href="https://github.com/100536">Github</a></li>
-      <li class="menu__item"><a class="menu__link" href="https://www.linkedin.com/in/lucas-askamp-87031a2b7/">LinkedIn</a></li>
-      <li class="menu__item"><a class="menu__link" href="https://www.instagram.com/lucasaskamp/">Instagram</a></li>
-      <li class="menu__item"><a class="menu__link" href="contact.html">Contact</a></li>
-    </ul>
-    <p>&copy;2024 Lucas Askamp | All Rights Reserved</p>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="avatar">LA</span>
+        <div>
+          <strong>Lucas Askamp</strong>
+          <div class="muted">© <span id="year"></span> Alle rechten voorbehouden</div>
+        </div>
+      </div>
+
+      <ul class="footer-menu">
+        <li><a href="https://github.com/100536" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/lucas-askamp-87031a2b7/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
   </footer>
 
-  <!-- Script voor statusmelding -->
-  <script>
-    (function () {
-      const params = new URLSearchParams(location.search);
-      const s = params.get('status');
-      const el = document.getElementById('status');
-      if (!el || !s) return;
-      const ok = s === 'ok';
-      el.textContent = ok ? '✅ Bericht verzonden.' : '❌ Versturen mislukt. Probeer het later opnieuw.';
-      el.style.color = ok ? 'green' : 'red';
-    })();
-  </script>
-
+  <script src="../javascript/site.js"></script>
+  <script src="../javascript/contact.js"></script>
 </body>
 </html>
