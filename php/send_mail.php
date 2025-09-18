@@ -1,108 +1,97 @@
 <?php
 declare(strict_types=1);
-session_start();
 
-// --- pad naar config ---
-$config = require __DIR__ . '/config.php';
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
 
-// --- eenvoudige rate limit: max 1 mail per 60s per sessie ---
-if (!empty($_SESSION['last_mail_time']) && time() - $_SESSION['last_mail_time'] < 60) {
-    header('Location: ../html/contact.html?status=error'); exit;
-}
+require_once __DIR__ . '/../includes/config.php';     // $pdo
+require_once __DIR__ . '/../includes/activity.php';   // log_event()
 
-// --- alleen POST ---
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../html/contact.html?status=error'); exit;
-}
+function redirect(string $to): void { header('Location: '.$to); exit; }
 
-// --- honeypot (bots vullen dit) ---
-if (!empty($_POST['website'] ?? '')) {
-    header('Location: ../html/contact.html?status=ok'); exit; // stilletjes negeren
-}
+$backOk  = '../main/contact.php?sent=1';
+$backBad = '../main/contact.php?err=input';
+$backSrv = '../main/contact.php?err=server';
 
-// --- helper: schoon input en blokkeer header injectie ---
-function clean(string $v): string {
-    $v = trim($v);
-    $v = str_replace(["\r", "\n", "%0a", "%0d"], '', $v); // header-injectie voorkomen
-    return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-}
-
-$name    = clean($_POST['name']    ?? '');
-$email   = clean($_POST['email']   ?? '');
-$subject = clean($_POST['subject'] ?? '');
-$message = trim($_POST['message']  ?? '');
-
-// validatie
-if ($name === '' || $email === '' || $subject === '' || $message === '') {
-    header('Location: ../html/contact.html?status=error'); exit;
-}
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header('Location: ../html/contact.html?status=error'); exit;
-}
-
-// mailinhoud
-$ip      = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-$ua      = $_SERVER['HTTP_USER_AGENT'] ?? 'unknown';
-$bodyTxt = "Nieuw bericht via portfolio:\n\n".
-           "Naam: {$name}\n".
-           "E-mail: {$email}\n".
-           "Onderwerp: {$subject}\n".
-           "Bericht:\n{$message}\n\n".
-           "-----\nIP: {$ip}\nUA: {$ua}\n";
-
-// --- kies verzendmethode ---
-$ok = false;
-
-if (!empty($config['SMTP_USE'])) {
-    // --- SMTP via PHPMailer ---
-    // Voorwaarden: composer + PHPMailer geïnstalleerd
-    // composer require phpmailer/phpmailer
-    require_once __DIR__ . '/vendor/autoload.php';
-
-    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-    try {
-        $mail->isSMTP();
-        $mail->Host       = $config['SMTP_HOST'];
-        $mail->SMTPAuth   = true;
-        $mail->Username   = $config['SMTP_USER'];
-        $mail->Password   = $config['SMTP_PASS'];
-        $mail->SMTPSecure = $config['SMTP_SECURE'] ?? PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = (int)$config['SMTP_PORT'];
-
-        $mail->setFrom($config['MAIL_FROM'], $config['MAIL_FROM_NAME'] ?? 'Website');
-        $mail->addAddress($config['MAIL_TO']);
-
-        // als reply-to van afzender, zodat je direct kunt beantwoorden
-        $mail->addReplyTo($email, $name);
-
-        $mail->Subject = $subject;
-        $mail->Body    = $bodyTxt;
-
-        $ok = $mail->send();
-    } catch (Throwable $e) {
-        $ok = false;
-        // log eventueel: error_log('MAILERR: '.$e->getMessage());
+try {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        exit;
     }
-} else {
-    // --- Eenvoudige mail() ---
-    $to      = $config['MAIL_TO'];
-    $from    = $config['MAIL_FROM'];
-    $fromName= $config['MAIL_FROM_NAME'] ?? 'Website';
 
-    $headers = [];
-    $headers[] = 'From: '.$fromName.' <'.$from.'>';
-    $headers[] = 'Reply-To: '.$name.' <'.$email.'>';
-    $headers[] = 'MIME-Version: 1.0';
-    $headers[] = 'Content-Type: text/plain; charset=UTF-8';
-    $headersStr = implode("\r\n", $headers);
+    // Honeypot
+    if (!empty($_POST['website'] ?? '')) {
+        redirect($backOk);
+    }
 
-    $ok = @mail($to, $subject, $bodyTxt, $headersStr);
-}
+    // Input
+    $name    = trim((string)($_POST['name'] ?? ''));
+    $email   = trim((string)($_POST['email'] ?? ''));
+    $subject = trim((string)($_POST['subject'] ?? ''));
+    $message = trim((string)($_POST['message'] ?? ''));
 
-// --- klaar ---
-if ($ok) {
-    $_SESSION['last_mail_time'] = time();
-    header('Location: ../html/contact.html?status=ok'); exit;
-} else {
-    header('Location: ../html/contact.html?status=error'); exit;
+    // Validatie volgens jouw kolomnamen/lengtes
+    if ($name === '' || mb_strlen($name) > 120)        redirect($backBad);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))     redirect($backBad);
+    if (mb_strlen($email) > 190)                        redirect($backBad);
+    if ($subject === '' || mb_strlen($subject) > 150)   redirect($backBad);
+    if ($message === '' || mb_strlen($message) > 5000)  redirect($backBad);
+
+    // Client info
+    $ua = substr((string)($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 255);
+    $ipRaw = null;
+    if (!empty($_SERVER['REMOTE_ADDR'])) {
+        $packed = @inet_pton($_SERVER['REMOTE_ADDR']);
+        if ($packed !== false) $ipRaw = $packed; // binair voor VARBINARY(16)
+    }
+
+    // INSERT (let op: géén updated_at)
+    $sql = "INSERT INTO contact_messages
+              (name, email, subject, message, status, created_at, ip, user_agent)
+            VALUES
+              (:n, :e, :s, :m, 'open', NOW(), :ip, :ua)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':n',  $name);
+    $stmt->bindValue(':e',  $email);
+    $stmt->bindValue(':s',  $subject);
+    $stmt->bindValue(':m',  $message);
+    if ($ipRaw === null) {
+        $stmt->bindValue(':ip', null, PDO::PARAM_NULL);
+    } else {
+        $stmt->bindValue(':ip', $ipRaw, PDO::PARAM_LOB);
+    }
+    $stmt->bindValue(':ua', $ua);
+    $stmt->execute();
+
+    $id = (int)$pdo->lastInsertId();
+
+    // Log create
+    log_event(
+        $pdo,
+        $_SESSION['user_id']  ?? null,
+        $_SESSION['username'] ?? null,
+        'create',
+        'contact',
+        $id,
+        ['name'=>$name,'email'=>$email,'subject'=>$subject]
+    );
+
+    // (optioneel) mail naar jezelf; fouten negeren
+    if (function_exists('mail')) {
+        $to   = 'lucas.werk@gmail.com';
+        $host = $_SERVER['HTTP_HOST'] ?? 'site';
+        $hdrs = "From: no-reply@{$host}\r\n".
+            "Reply-To: {$email}\r\n".
+            "Content-Type: text/plain; charset=UTF-8\r\n";
+        $body = "Nieuw bericht via het contactformulier:\n\n".
+            "Naam: {$name}\nE-mail: {$email}\nOnderwerp: {$subject}\n\n".
+            "Bericht:\n{$message}\n";
+        @mail($to, "[Portfolio] {$subject}", $body, $hdrs);
+    }
+
+    redirect($backOk);
+
+} catch (Throwable $e) {
+    error_log('send_mail.php error: '.$e->getMessage());
+    redirect($backSrv);
 }
